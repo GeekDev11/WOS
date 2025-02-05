@@ -3,97 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Level Upgrade Calculator</title>
+    <title>Building Upgrade Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             background-color: #f0f0f0;
         }
-
         .calculator {
             background-color: white;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-
-        .input-group {
-            margin-bottom: 15px;
-        }
-
-        label {
-            display: inline-block;
-            width: 250px;
-            margin-right: 10px;
-        }
-
-        select, input[type="number"] {
-            padding: 5px;
-            width: 200px;
-            height: 34px;
-        }
-
-        .checkbox-group {
-            margin: 15px 0;
-        }
-
-        button {
-            background-color: #4CAF50;
+        .level-guide {
+            background-color: #023f6d;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
             color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 10px;
+            line-height: 1.5;
         }
-
-        button:hover {
-            background-color: #45a049;
+        .tables-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
         }
-
-        .results {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e9f7ef;
-            border-radius: 5px;
+        .level-table {
+            width: 48%;
+            border-collapse: collapse;
         }
-
-        .error {
-            color: red;
-            margin-top: 10px;
+        .level-table th, .level-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .level-table select {
+            width: 100%;
+            padding: 5px;
         }
     </style>
 </head>
 <body>
     <div class="calculator">
-        <h2>Level Upgrade Calculator</h2>
-        <div class="input-group">
-            <label>Current Level:</label>
-            <select id="currentLevel"></select>
+        <h2>Buildings Upgrade Calculator</h2>
+
+        <!-- Level Guide Note -->
+        <div class="level-guide">
+            <strong>New Buildings will be added soon:</strong><br>
+            <!--  FC1 5 = FC1 ,&nbsp;&nbsp; -->
+           
         </div>
-        <div class="input-group">
-            <label>Desired Level:</label>
-            <select id="targetLevel"></select>
+
+        <div class="tables-container">
+            <table class="level-table">
+                <caption>Current Levels</caption>
+                <tr><th>Furnace</th><td><select class="current-level" data-building="furnace"></select></td></tr>
+                <tr><th>Embassy</th><td><select class="current-level" data-building="embassy"></select></td></tr>
+                <tr><th>Infantry Camp</th><td><select class="current-level" data-building="infantry"></select></td></tr>
+                <tr><th>Lancer Camp</th><td><select class="current-level" data-building="lancer"></select></td></tr>
+                <tr><th>Marksmen Camp</th><td><select class="current-level" data-building="marksmen"></select></td></tr>
+                <tr><th>War Academy</th><td><select class="current-level" data-building="warAcademy"></select></td></tr>
+            </table>
+            <table class="level-table">
+                <caption>Desired Levels</caption>
+                <tr><th>Furnace</th><td><select class="desired-level" data-building="furnace"></select></td></tr>
+                <tr><th>Embassy</th><td><select class="desired-level" data-building="embassy"></select></td></tr>
+                <tr><th>Infantry Camp</th><td><select class="desired-level" data-building="infantry"></select></td></tr>
+                <tr><th>Lancer Camp</th><td><select class="desired-level" data-building="lancer"></select></td></tr>
+                <tr><th>Marksmen Camp</th><td><select class="desired-level" data-building="marksmen"></select></td></tr>
+                <tr><th>War Academy</th><td><select class="desired-level" data-building="warAcademy"></select></td></tr>
+            </table>
         </div>
 
-     
-        
-
-<div class="input-group">
-    <label>VP Buff </label>
-    <select id="vpBuff">
-        <option value="0">No Buff</option>
-        <option value="10">10% buff</option>
-        <option value="15">15% buff</option>
-    </select>
-</div>
-        
-
         <div class="input-group">
-            <label>Zinman Skill </label>
+            <label>Zinman Resourceful Skill:</label>
             <select id="zinmanSkill">
                 <option value="0">Level 0</option>
                 <option value="1">Level 1 (3%)</option>
@@ -103,24 +89,28 @@
                 <option value="5">Level 5 (15%)</option>
             </select>
         </div>
-
+        <div class="input-group">
+            <label>VP Buff </label>
+            <select id="vpBuff">
+                <option value="0">No Buff</option>
+                <option value="10">10% buff</option>
+                <option value="15">15% buff</option>
+            </select>
+        </div>
         <div class="checkbox-group">
             <label>
-                <input type="checkbox" id="presidentBuff"> President Buff (+10% Speed)
+                <input type="checkbox" id="presidentBuff"> +10% Construction Speed (President Buff)
             </label>
         </div>
-
         <div class="input-group">
             <label>Construction Speed %:</label>
-            <input type="number" id="constructionSpeed" value="0">
+            <input type="number" id="constructionSpeed" min="0" max="100" value="0">
         </div>
-
         <div class="checkbox-group">
             <label>
-                <input type="checkbox" id="doubleDown"> Double Down (20% Speed)
+                <input type="checkbox" id="doubleDown"> Double Down Active
             </label>
         </div>
-
         <div class="input-group">
             <label>Construction Pet Level:</label>
             <select id="petBuff">
@@ -132,12 +122,10 @@
                 <option value="15">Level 5 (15%)</option>
             </select>
         </div>
-
         <button onclick="calculateResources()">Calculate</button>
         <div class="results" id="results"></div>
         <div class="error" id="error"></div>
     </div>
-
     <script src="scriptcopy.js"></script>
 </body>
 </html>
